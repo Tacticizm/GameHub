@@ -3,124 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Game Hub</title>
+    <title>Ultimate Game Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
+            /* Premium Dark Theme Colors */
+            --bg-main: #0b0f19;
+            --bg-secondary: #121826;
+            --bg-card: #1a2235;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --tact-accent: #3b82f6;
-            --pizza-accent: #ef4444;
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            /* Brand Gradients */
+            --tact-brand: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --tact-shadow: rgba(59, 130, 246, 0.25);
+            
+            --pizza-brand: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            --pizza-shadow: rgba(239, 68, 68, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
 
+        /* Upgraded Header */
         header {
             text-align: center;
-            padding: 40px 20px;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid #334155;
+            padding: 60px 20px;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            background-image: radial-gradient(circle at top, rgba(255,255,255,0.03) 0%, transparent 70%);
         }
 
         h1 {
             margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         p.subtitle {
             color: var(--text-muted);
-            margin-top: 10px;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-weight: 400;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         .provider-section {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
+        }
+
+        .provider-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .provider-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid;
-            display: inline-block;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin: 0;
         }
 
-        .tact-title { border-color: var(--tact-accent); }
-        .pizza-title { border-color: var(--pizza-accent); }
+        .tact-text { color: #60a5fa; }
+        .pizza-text { color: #f87171; }
 
+        /* Modern Grid Layout */
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
         }
 
+        /* Upgraded Game Cards */
         .game-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border: 1px solid #334155;
         }
 
         .game-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Fake Image Thumbnails to look professional */
+        .game-thumbnail {
+            height: 160px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative pattern for thumbnails */
+        .game-thumbnail::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 15px 15px;
+            opacity: 0.5;
+        }
+
+        .game-info {
+            flex-grow: 1;
         }
 
         .game-title {
             font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
         }
 
         .game-desc {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            line-height: 1.5;
         }
 
+        /* Upgraded Buttons */
         .play-button {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 8px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px 20px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             color: white;
-            transition: opacity 0.2s;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .tact-btn { 
+            background: var(--tact-brand); 
+            box-shadow: 0 4px 15px var(--tact-shadow);
+        }
+        
+        .pizza-btn { 
+            background: var(--pizza-brand); 
+            box-shadow: 0 4px 15px var(--pizza-shadow);
         }
 
         .play-button:hover {
-            opacity: 0.8;
+            filter: brightness(1.1);
+            transform: translateY(-2px);
         }
-
-        .tact-btn { background-color: var(--tact-accent); }
-        .pizza-btn { background-color: var(--pizza-accent); }
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 40px 20px;
             color: var(--text-muted);
             font-size: 0.9rem;
-            border-top: 1px solid #334155;
-            margin-top: 40px;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
         }
     </style>
 </head>
@@ -128,26 +200,32 @@
 
     <header>
         <h1>Ultimate Game Hub</h1>
-        <p class="subtitle">Choose your provider and start playing!</p>
+        <p class="subtitle">Select your provider, pick a game, and jump right in.</p>
     </header>
 
     <div class="container">
+        
         <section class="provider-section">
-            <h2 class="provider-title tact-title">Tact's Games</h2>
+            <div class="provider-header">
+                <h2 class="provider-title tact-text">Tact's Games</h2>
+            </div>
+            
             <div class="game-grid">
                 
                 <div class="game-card">
-                    <div>
+                    <div class="game-thumbnail"></div>
+                    <div class="game-info">
                         <div class="game-title">Food Challenge</div>
-                        <div class="game-desc">A fun game by Tact's Games.</div>
+                        <div class="game-desc">A fun, fast-paced challenge brought to you by Tact's Games.</div>
                     </div>
                     <a href="https://tacticizm.github.io/Food-Challenge/" class="play-button tact-btn">Play Now</a>
                 </div>
 
                 <div class="game-card">
-                    <div>
-                        <div class="game-title">A Point and Click Adventure Game</div>
-                        <div class="game-desc">Explore and interact in this adventure.</div>
+                    <div class="game-thumbnail"></div>
+                    <div class="game-info">
+                        <div class="game-title">A Point and Click Adventure</div>
+                        <div class="game-desc">Explore your surroundings and interact in this classic adventure format.</div>
                     </div>
                     <a href="https://tacticizm.github.io/PaCA/" class="play-button tact-btn">Play Now</a>
                 </div>
@@ -156,39 +234,46 @@
         </section>
 
         <section class="provider-section">
-            <h2 class="provider-title pizza-title">Pizza Hero Games</h2>
+            <div class="provider-header">
+                <h2 class="provider-title pizza-text">Pizza Hero Games</h2>
+            </div>
+            
             <div class="game-grid">
                 
                 <div class="game-card">
-                    <div>
+                    <div class="game-thumbnail"></div>
+                    <div class="game-info">
                         <div class="game-title">Ethan Makes It</div>
-                        <div class="game-desc">Dive into Ethan's unique creation!</div>
+                        <div class="game-desc">Dive into Ethan's unique and creative world.</div>
                     </div>
                     <a href="https://youpizzahero.github.io/EthanMakesIt/" class="play-button pizza-btn">Play Now</a>
                 </div>
 
                 <div class="game-card">
-                    <div>
+                    <div class="game-thumbnail"></div>
+                    <div class="game-info">
                         <div class="game-title">Dungeon Descent</div>
-                        <div class="game-desc">Brave the depths and face the challenges below.</div>
+                        <div class="game-desc">Brave the depths and face the challenges that lurk below.</div>
                     </div>
                     <a href="https://youpizzahero.github.io/Dungeon-Descent/" class="play-button pizza-btn">Play Now</a>
                 </div>
 
                 <div class="game-card">
-                    <div>
+                    <div class="game-thumbnail"></div>
+                    <div class="game-info">
                         <div class="game-title">Wallop</div>
-                        <div class="game-desc">Get ready to pack a serious punch in this one.</div>
+                        <div class="game-desc">Get ready to pack a serious punch in this action-packed title.</div>
                     </div>
                     <a href="https://youpizzahero.github.io/Wallop/" class="play-button pizza-btn">Play Now</a>
                 </div>
 
             </div>
         </section>
+
     </div>
 
     <footer>
-        <p>&copy; 2026 Ultimate Game Hub. All games are hosted by their respective providers.</p>
+        <p>&copy; 2026 Ultimate Game Hub. All games are hosted by their respective developers.</p>
     </footer>
 
 </body>
