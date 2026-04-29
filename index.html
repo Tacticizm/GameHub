@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Game Hub</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --tact-accent: #3b82f6;
+            --pizza-accent: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid #334155;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .provider-section {
+            margin-bottom: 60px;
+        }
+
+        .provider-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            display: inline-block;
+        }
+
+        .tact-title { border-color: var(--tact-accent); }
+        .pizza-title { border-color: var(--pizza-accent); }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #334155;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .game-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .play-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .play-button:hover {
+            opacity: 0.8;
+        }
+
+        .tact-btn { background-color: var(--tact-accent); }
+        .pizza-btn { background-color: var(--pizza-accent); }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Ultimate Game Hub</h1>
+        <p class="subtitle">Choose your provider and start playing!</p>
+    </header>
+
+    <div class="container">
+        <section class="provider-section">
+            <h2 class="provider-title tact-title">Tact's Games</h2>
+            <div class="game-grid">
+                
+                <div class="game-card">
+                    <div>
+                        <div class="game-title">Food Challenge</div>
+                        <div class="game-desc">A fun game by Tact's Games.</div>
+                    </div>
+                    <a href="https://tacticizm.github.io/Food-Challenge/" class="play-button tact-btn">Play Now</a>
+                </div>
+
+                <div class="game-card">
+                    <div>
+                        <div class="game-title">A Point and Click Adventure Game</div>
+                        <div class="game-desc">Explore and interact in this adventure.</div>
+                    </div>
+                    <a href="https://tacticizm.github.io/PaCA/" class="play-button tact-btn">Play Now</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="provider-section">
+            <h2 class="provider-title pizza-title">Pizza Hero Games</h2>
+            <div class="game-grid">
+                
+                <div class="game-card">
+                    <div>
+                        <div class="game-title">Ethan Makes It</div>
+                        <div class="game-desc">Dive into Ethan's unique creation!</div>
+                    </div>
+                    <a href="https://youpizzahero.github.io/EthanMakesIt/" class="play-button pizza-btn">Play Now</a>
+                </div>
+
+                <div class="game-card">
+                    <div>
+                        <div class="game-title">Dungeon Descent</div>
+                        <div class="game-desc">Brave the depths and face the challenges below.</div>
+                    </div>
+                    <a href="https://youpizzahero.github.io/Dungeon-Descent/" class="play-button pizza-btn">Play Now</a>
+                </div>
+
+                <div class="game-card">
+                    <div>
+                        <div class="game-title">Wallop</div>
+                        <div class="game-desc">Get ready to pack a serious punch in this one.</div>
+                    </div>
+                    <a href="https://youpizzahero.github.io/Wallop/" class="play-button pizza-btn">Play Now</a>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Ultimate Game Hub. All games are hosted by their respective providers.</p>
+    </footer>
+
+</body>
+</html>
