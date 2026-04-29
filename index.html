@@ -114,7 +114,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        /* Fake Image Thumbnails to look professional */
+        /* Image Thumbnails */
         .game-thumbnail {
             height: 160px;
             border-radius: 10px;
@@ -127,7 +127,7 @@
             position: relative;
         }
 
-        /* Decorative pattern for thumbnails */
+        /* Decorative pattern for thumbnails without images */
         .game-thumbnail::before {
             content: "";
             position: absolute;
@@ -135,6 +135,7 @@
             background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
             background-size: 15px 15px;
             opacity: 0.5;
+            z-index: 0;
         }
 
         .game-info {
@@ -213,7 +214,7 @@
             <div class="game-grid">
                 
                 <div class="game-card">
-                    <div class="game-thumbnail"></div>
+                    <div class="game-thumbnail" style="background-image: url('Tact1.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
                     <div class="game-info">
                         <div class="game-title">Food Challenge</div>
                         <div class="game-desc">A fun, fast-paced challenge brought to you by Tact's Games.</div>
@@ -222,9 +223,9 @@
                 </div>
 
                 <div class="game-card">
-                    <div class="game-thumbnail"></div>
+                    <div class="game-thumbnail" style="background-image: url('Tact2.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
                     <div class="game-info">
-                        <div class="game-title">A Point and Click Adventure</div>
+                        <div class="game-title">A Point and Click Adventure Game</div>
                         <div class="game-desc">Explore your surroundings and interact in this classic adventure format.</div>
                     </div>
                     <a href="https://tacticizm.github.io/PaCA/" class="play-button tact-btn">Play Now</a>
@@ -241,7 +242,7 @@
             <div class="game-grid">
                 
                 <div class="game-card">
-                    <div class="game-thumbnail"></div>
+                    <div class="game-thumbnail" style="background-image: url('Doom1.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
                     <div class="game-info">
                         <div class="game-title">Ethan Makes It</div>
                         <div class="game-desc">Dive into Ethan's unique and creative world.</div>
@@ -250,7 +251,7 @@
                 </div>
 
                 <div class="game-card">
-                    <div class="game-thumbnail"></div>
+                    <div class="game-thumbnail" style="background-image: url('Doom2.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
                     <div class="game-info">
                         <div class="game-title">Dungeon Descent</div>
                         <div class="game-desc">Brave the depths and face the challenges that lurk below.</div>
@@ -259,7 +260,7 @@
                 </div>
 
                 <div class="game-card">
-                    <div class="game-thumbnail"></div>
+                    <div class="game-thumbnail" style="background-image: url('Doom3.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
                     <div class="game-info">
                         <div class="game-title">Wallop</div>
                         <div class="game-desc">Get ready to pack a serious punch in this action-packed title.</div>
