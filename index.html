@@ -11,9 +11,10 @@
             --text-main: #e0e0ff;
             --text-muted: #8a8aab;
             
-            /* Neon Theme Colors */
-            --tact-neon: #00f3ff;
-            --pizza-neon: #ff0055;
+            /* Your Specific Theme Colors */
+            --title-cyan: #00f3ff;
+            --tact-neon: #ffff00; /* Yellow */
+            --pizza-neon: #ff0055; /* Neon Red */
         }
 
         * {
@@ -44,8 +45,8 @@
             margin: 0;
             font-size: 3.5rem;
             font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px var(--tact-neon), 0 0 40px var(--pizza-neon);
+            color: var(--title-cyan);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px var(--title-cyan), 0 0 40px var(--title-cyan);
             letter-spacing: 2px;
         }
 
@@ -82,6 +83,7 @@
             backdrop-filter: blur(5px);
         }
 
+        /* Provider Specific Borders */
         .tact-col { border-color: var(--tact-neon); }
         .pizza-col { border-color: var(--pizza-neon); }
 
@@ -94,7 +96,8 @@
             text-align: center;
         }
 
-        .tact-text { color: var(--tact-neon); text-shadow: 0 0 10px rgba(0, 243, 255, 0.4); }
+        /* Provider Specific Text Glow */
+        .tact-text { color: var(--tact-neon); text-shadow: 0 0 10px rgba(255, 255, 0, 0.4); }
         .pizza-text { color: var(--pizza-neon); text-shadow: 0 0 10px rgba(255, 0, 85, 0.4); }
 
         /* Horizontal Wide Cards */
@@ -108,7 +111,8 @@
             transition: 0.3s;
         }
 
-        .tact-card:hover { border-color: var(--tact-neon); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); transform: scale(1.02); }
+        /* Provider Specific Card Hovers */
+        .tact-card:hover { border-color: var(--tact-neon); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2); transform: scale(1.02); }
         .pizza-card:hover { border-color: var(--pizza-neon); box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); transform: scale(1.02); }
 
         .game-thumbnail {
@@ -146,7 +150,7 @@
             margin-bottom: 15px;
         }
 
-        /* Glowing Wireframe Buttons */
+        /* Glowing Action Buttons */
         .play-button {
             display: inline-block;
             padding: 10px 15px;
@@ -161,6 +165,7 @@
             background: transparent;
         }
 
+        /* Tact Buttons */
         .btn-tact {
             color: var(--tact-neon);
             border-color: var(--tact-neon);
@@ -171,13 +176,14 @@
             box-shadow: 0 0 15px var(--tact-neon);
         }
 
+        /* Pizza Hero Buttons */
         .btn-pizza {
             color: var(--pizza-neon);
             border-color: var(--pizza-neon);
         }
         .btn-pizza:hover {
             background: var(--pizza-neon);
-            color: #000;
+            color: #fff; /* White text looks better on red background */
             box-shadow: 0 0 15px var(--pizza-neon);
         }
 
@@ -195,7 +201,7 @@
 
     <header>
         <h1>ARCADE HUB</h1>
-        <p class="subtitle">SYSTEM ONLINE // SELECT YOUR PROVIDER</p>
+        <p class="subtitle">SYSTEM ONLINE // SELECT YOUR GAME</p>
     </header>
 
     <div class="hub-container">
