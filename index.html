@@ -7,14 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #05050a;
+            var(--bg-color): #05050a;
             --text-main: #e0e0ff;
             --text-muted: #8a8aab;
             
-            /* Your Specific Theme Colors */
+            /* Default Theme Colors */
             --title-cyan: #00f3ff;
             --tact-neon: #ffff00; /* Yellow */
-            --pizza-neon: #ff0055; /* Neon Red */
+            --pizza-neon: #ff0000; /* Pure Red */
         }
 
         * {
@@ -23,7 +23,7 @@
 
         body {
             font-family: 'Orbitron', sans-serif;
-            background-color: var(--bg-color);
+            background-color: #05050a;
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -34,6 +34,90 @@
                 linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
         }
+
+        /* --- SETTINGS MENU STYLES --- */
+        .settings-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid var(--text-muted);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(90deg);
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        .settings-panel {
+            position: fixed;
+            top: 75px;
+            right: 20px;
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid var(--text-muted);
+            border-radius: 12px;
+            padding: 20px;
+            width: 250px;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            display: none; /* Hidden by default */
+        }
+
+        .settings-panel h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .color-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .color-control input[type="color"] {
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .close-settings {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--text-muted);
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .close-settings:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        /* ---------------------------- */
 
         header {
             text-align: center;
@@ -67,7 +151,6 @@
             gap: 40px;
         }
 
-        /* Responsive break to single column on smaller screens */
         @media (max-width: 900px) {
             .hub-container {
                 grid-template-columns: 1fr;
@@ -98,7 +181,7 @@
 
         /* Provider Specific Text Glow */
         .tact-text { color: var(--tact-neon); text-shadow: 0 0 10px rgba(255, 255, 0, 0.4); }
-        .pizza-text { color: var(--pizza-neon); text-shadow: 0 0 10px rgba(255, 0, 85, 0.4); }
+        .pizza-text { color: var(--pizza-neon); text-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
 
         /* Horizontal Wide Cards */
         .game-card {
@@ -113,7 +196,7 @@
 
         /* Provider Specific Card Hovers */
         .tact-card:hover { border-color: var(--tact-neon); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2); transform: scale(1.02); }
-        .pizza-card:hover { border-color: var(--pizza-neon); box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); transform: scale(1.02); }
+        .pizza-card:hover { border-color: var(--pizza-neon); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); transform: scale(1.02); }
 
         .game-thumbnail {
             width: 150px;
@@ -122,7 +205,6 @@
             border-right: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Adjusting cards for mobile */
         @media (max-width: 500px) {
             .game-card { flex-direction: column; }
             .game-thumbnail { width: 100%; height: 150px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -183,7 +265,7 @@
         }
         .btn-pizza:hover {
             background: var(--pizza-neon);
-            color: #fff; /* White text looks better on red background */
+            color: #fff;
             box-shadow: 0 0 15px var(--pizza-neon);
         }
 
@@ -198,6 +280,24 @@
     </style>
 </head>
 <body>
+
+    <div class="settings-btn" id="settingsBtn">⚙️</div>
+    <div class="settings-panel" id="settingsPanel">
+        <h3>Theme Settings</h3>
+        <div class="color-control">
+            <span>Title Color</span>
+            <input type="color" id="titleColorInput" value="#00f3ff">
+        </div>
+        <div class="color-control">
+            <span>Tact's Games</span>
+            <input type="color" id="tactColorInput" value="#ffff00">
+        </div>
+        <div class="color-control">
+            <span>Pizza Hero</span>
+            <input type="color" id="pizzaColorInput" value="#ff0000">
+        </div>
+        <button class="close-settings" id="closeSettingsBtn">Close</button>
+    </div>
 
     <header>
         <h1>ARCADE HUB</h1>
@@ -285,5 +385,70 @@
         <p>&copy; 2026 ARCADE HUB. ALL SYSTEMS NOMINAL.</p>
     </footer>
 
+    <script>
+        // Get elements
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+        const root = document.documentElement;
+
+        // Color inputs
+        const titleColorInput = document.getElementById('titleColorInput');
+        const tactColorInput = document.getElementById('tactColorInput');
+        const pizzaColorInput = document.getElementById('pizzaColorInput');
+
+        // Toggle panel visibility
+        settingsBtn.addEventListener('click', () => {
+            if (settingsPanel.style.display === 'block') {
+                settingsPanel.style.display = 'none';
+            } else {
+                settingsPanel.style.display = 'block';
+            }
+        });
+
+        // Close button
+        closeSettingsBtn.addEventListener('click', () => {
+            settingsPanel.style.display = 'none';
+        });
+
+        // Update colors live and SAVE to localStorage
+        titleColorInput.addEventListener('input', (e) => {
+            root.style.setProperty('--title-cyan', e.target.value);
+            localStorage.setItem('hubTitleColor', e.target.value);
+        });
+
+        tactColorInput.addEventListener('input', (e) => {
+            root.style.setProperty('--tact-neon', e.target.value);
+            localStorage.setItem('hubTactColor', e.target.value);
+        });
+
+        pizzaColorInput.addEventListener('input', (e) => {
+            root.style.setProperty('--pizza-neon', e.target.value);
+            localStorage.setItem('hubPizzaColor', e.target.value);
+        });
+
+        // LOAD saved colors when the page is opened
+        function loadSavedSettings() {
+            const savedTitleColor = localStorage.getItem('hubTitleColor');
+            const savedTactColor = localStorage.getItem('hubTactColor');
+            const savedPizzaColor = localStorage.getItem('hubPizzaColor');
+
+            if (savedTitleColor) {
+                root.style.setProperty('--title-cyan', savedTitleColor);
+                titleColorInput.value = savedTitleColor;
+            }
+            if (savedTactColor) {
+                root.style.setProperty('--tact-neon', savedTactColor);
+                tactColorInput.value = savedTactColor;
+            }
+            if (savedPizzaColor) {
+                root.style.setProperty('--pizza-neon', savedPizzaColor);
+                pizzaColorInput.value = savedPizzaColor;
+            }
+        }
+
+        // Run the load function immediately
+        loadSavedSettings();
+    </script>
 </body>
 </html>
