@@ -4,23 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultimate Game Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Premium Dark Theme Colors */
-            --bg-main: #0b0f19;
-            --bg-secondary: #121826;
-            --bg-card: #1a2235;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
+            --bg-color: #05050a;
+            --text-main: #e0e0ff;
+            --text-muted: #8a8aab;
             
-            /* Brand Gradients */
-            --tact-brand: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            --tact-shadow: rgba(59, 130, 246, 0.25);
-            
-            --pizza-brand: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-            --pizza-shadow: rgba(239, 68, 68, 0.25);
+            /* Neon Theme Colors */
+            --tact-neon: #00f3ff;
+            --pizza-neon: #ff0055;
         }
 
         * {
@@ -28,253 +21,262 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            /* Subtle retro grid background */
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        /* Upgraded Header */
         header {
             text-align: center;
-            padding: 60px 20px;
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            background-image: radial-gradient(circle at top, rgba(255,255,255,0.03) 0%, transparent 70%);
+            padding: 60px 20px 40px;
+            text-transform: uppercase;
         }
 
         h1 {
             margin: 0;
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px var(--tact-neon), 0 0 40px var(--pizza-neon);
+            letter-spacing: 2px;
         }
 
         p.subtitle {
             color: var(--text-muted);
-            margin-top: 15px;
-            font-size: 1.1rem;
-            font-weight: 400;
+            margin-top: 10px;
+            font-family: sans-serif;
+            letter-spacing: 1px;
         }
 
-        .container {
-            max-width: 1200px;
+        /* Split Screen Layout */
+        .hub-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        .provider-section {
-            margin-bottom: 80px;
-        }
-
-        .provider-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .provider-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            margin: 0;
-        }
-
-        .tact-text { color: #60a5fa; }
-        .pizza-text { color: #f87171; }
-
-        /* Modern Grid Layout */
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        /* Upgraded Game Cards */
-        .game-card {
-            background-color: var(--bg-card);
-            border-radius: 16px;
             padding: 20px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* Responsive break to single column on smaller screens */
+        @media (max-width: 900px) {
+            .hub-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .provider-column {
+            background: rgba(10, 10, 15, 0.8);
+            border-radius: 12px;
+            padding: 30px;
+            border-top: 4px solid;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .tact-col { border-color: var(--tact-neon); }
+        .pizza-col { border-color: var(--pizza-neon); }
+
+        .column-header {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .tact-text { color: var(--tact-neon); text-shadow: 0 0 10px rgba(0, 243, 255, 0.4); }
+        .pizza-text { color: var(--pizza-neon); text-shadow: 0 0 10px rgba(255, 0, 85, 0.4); }
+
+        /* Horizontal Wide Cards */
+        .game-card {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Image Thumbnails */
-        .game-thumbnail {
-            height: 160px;
-            border-radius: 10px;
+            background: #0a0a12;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
             margin-bottom: 20px;
-            background-color: rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-            position: relative;
+            transition: 0.3s;
         }
 
-        /* Decorative pattern for thumbnails without images */
-        .game-thumbnail::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 15px 15px;
-            opacity: 0.5;
-            z-index: 0;
+        .tact-card:hover { border-color: var(--tact-neon); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); transform: scale(1.02); }
+        .pizza-card:hover { border-color: var(--pizza-neon); box-shadow: 0 0 15px rgba(255, 0, 85, 0.2); transform: scale(1.02); }
+
+        .game-thumbnail {
+            width: 150px;
+            flex-shrink: 0;
+            background-color: #000;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Adjusting cards for mobile */
+        @media (max-width: 500px) {
+            .game-card { flex-direction: column; }
+            .game-thumbnail { width: 100%; height: 150px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
         }
 
         .game-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             flex-grow: 1;
         }
 
         .game-title {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
             margin-bottom: 8px;
-            color: #ffffff;
         }
 
         .game-desc {
+            font-family: sans-serif;
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
         }
 
-        /* Upgraded Buttons */
+        /* Glowing Wireframe Buttons */
         .play-button {
-            display: block;
-            width: 100%;
+            display: inline-block;
+            padding: 10px 15px;
             text-align: center;
-            padding: 12px 20px;
-            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
-            color: white;
-            transition: all 0.2s ease;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 1px;
+            transition: 0.3s;
+            border: 2px solid;
+            background: transparent;
         }
 
-        .tact-btn { 
-            background: var(--tact-brand); 
-            box-shadow: 0 4px 15px var(--tact-shadow);
+        .btn-tact {
+            color: var(--tact-neon);
+            border-color: var(--tact-neon);
         }
-        
-        .pizza-btn { 
-            background: var(--pizza-brand); 
-            box-shadow: 0 4px 15px var(--pizza-shadow);
+        .btn-tact:hover {
+            background: var(--tact-neon);
+            color: #000;
+            box-shadow: 0 0 15px var(--tact-neon);
         }
 
-        .play-button:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
+        .btn-pizza {
+            color: var(--pizza-neon);
+            border-color: var(--pizza-neon);
+        }
+        .btn-pizza:hover {
+            background: var(--pizza-neon);
+            color: #000;
+            box-shadow: 0 0 15px var(--pizza-neon);
         }
 
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px;
+            margin-top: 40px;
+            font-family: sans-serif;
             color: var(--text-muted);
-            font-size: 0.9rem;
-            background-color: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Ultimate Game Hub</h1>
-        <p class="subtitle">Select your provider, pick a game, and jump right in.</p>
+        <h1>ARCADE HUB</h1>
+        <p class="subtitle">SYSTEM ONLINE // SELECT YOUR PROVIDER</p>
     </header>
 
-    <div class="container">
+    <div class="hub-container">
         
-        <section class="provider-section">
-            <div class="provider-header">
-                <h2 class="provider-title tact-text">Tact's Games</h2>
-            </div>
+        <section class="provider-column tact-col">
+            <h2 class="column-header tact-text">Tact's Games</h2>
             
-            <div class="game-grid">
-                
-                <div class="game-card">
-                    <div class="game-thumbnail" style="background-image: url('Tact1.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
-                    <div class="game-info">
+            <div class="game-card tact-card">
+                <div class="game-thumbnail" style="background-image: url('Tact1.png'); background-size: cover; background-position: center;"></div>
+                <div class="game-info">
+                    <div>
                         <div class="game-title">Food Challenge</div>
                         <div class="game-desc">A fun, fast-paced challenge brought to you by Tact's Games.</div>
                     </div>
-                    <a href="https://tacticizm.github.io/Food-Challenge/" class="play-button tact-btn">Play Now</a>
+                    <div>
+                        <a href="https://tacticizm.github.io/Food-Challenge/" class="play-button btn-tact">Initialize</a>
+                    </div>
                 </div>
+            </div>
 
-                <div class="game-card">
-                    <div class="game-thumbnail" style="background-image: url('Tact2.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
-                    <div class="game-info">
+            <div class="game-card tact-card">
+                <div class="game-thumbnail" style="background-image: url('Tact2.png'); background-size: cover; background-position: center;"></div>
+                <div class="game-info">
+                    <div>
                         <div class="game-title">A Point and Click Adventure Game</div>
                         <div class="game-desc">Explore your surroundings and interact in this classic adventure format.</div>
                     </div>
-                    <a href="https://tacticizm.github.io/PaCA/" class="play-button tact-btn">Play Now</a>
+                    <div>
+                        <a href="https://tacticizm.github.io/PaCA/" class="play-button btn-tact">Initialize</a>
+                    </div>
                 </div>
-
             </div>
         </section>
 
-        <section class="provider-section">
-            <div class="provider-header">
-                <h2 class="provider-title pizza-text">Pizza Hero Games</h2>
-            </div>
+        <section class="provider-column pizza-col">
+            <h2 class="column-header pizza-text">Pizza Hero</h2>
             
-            <div class="game-grid">
-                
-                <div class="game-card">
-                    <div class="game-thumbnail" style="background-image: url('Doom1.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
-                    <div class="game-info">
+            <div class="game-card pizza-card">
+                <div class="game-thumbnail" style="background-image: url('Doom1.png'); background-size: cover; background-position: center;"></div>
+                <div class="game-info">
+                    <div>
                         <div class="game-title">Ethan Makes It</div>
                         <div class="game-desc">Dive into Ethan's unique and creative world.</div>
                     </div>
-                    <a href="https://youpizzahero.github.io/EthanMakesIt/" class="play-button pizza-btn">Play Now</a>
+                    <div>
+                        <a href="https://youpizzahero.github.io/EthanMakesIt/" class="play-button btn-pizza">Initialize</a>
+                    </div>
                 </div>
+            </div>
 
-                <div class="game-card">
-                    <div class="game-thumbnail" style="background-image: url('Doom2.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
-                    <div class="game-info">
+            <div class="game-card pizza-card">
+                <div class="game-thumbnail" style="background-image: url('Doom2.png'); background-size: cover; background-position: center;"></div>
+                <div class="game-info">
+                    <div>
                         <div class="game-title">Dungeon Descent</div>
                         <div class="game-desc">Brave the depths and face the challenges that lurk below.</div>
                     </div>
-                    <a href="https://youpizzahero.github.io/Dungeon-Descent/" class="play-button pizza-btn">Play Now</a>
+                    <div>
+                        <a href="https://youpizzahero.github.io/Dungeon-Descent/" class="play-button btn-pizza">Initialize</a>
+                    </div>
                 </div>
+            </div>
 
-                <div class="game-card">
-                    <div class="game-thumbnail" style="background-image: url('Doom3.png'); background-size: cover; background-position: center; position: relative; z-index: 1;"></div>
-                    <div class="game-info">
+            <div class="game-card pizza-card">
+                <div class="game-thumbnail" style="background-image: url('Doom3.png'); background-size: cover; background-position: center;"></div>
+                <div class="game-info">
+                    <div>
                         <div class="game-title">Wallop</div>
                         <div class="game-desc">Get ready to pack a serious punch in this action-packed title.</div>
                     </div>
-                    <a href="https://youpizzahero.github.io/Wallop/" class="play-button pizza-btn">Play Now</a>
+                    <div>
+                        <a href="https://youpizzahero.github.io/Wallop/" class="play-button btn-pizza">Initialize</a>
+                    </div>
                 </div>
-
             </div>
         </section>
 
     </div>
 
     <footer>
-        <p>&copy; 2026 Ultimate Game Hub. All games are hosted by their respective developers.</p>
+        <p>&copy; 2026 ARCADE HUB. ALL SYSTEMS NOMINAL.</p>
     </footer>
 
 </body>
