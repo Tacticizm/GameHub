@@ -23,7 +23,7 @@
 
         body {
             font-family: 'Orbitron', sans-serif;
-            background-color: #05050a;
+            background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -36,64 +36,169 @@
 
         /* --- SETTINGS MENU --- */
         .settings-btn {
-            position: fixed; top: 20px; right: 20px; font-size: 24px; cursor: pointer;
-            background: rgba(10, 10, 15, 0.8); border: 1px solid var(--text-muted);
-            border-radius: 50%; width: 45px; height: 45px; display: flex;
-            align-items: center; justify-content: center; z-index: 1000; transition: 0.3s;
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            font-size: 24px; 
+            cursor: pointer;
+            background: rgba(10, 10, 15, 0.8); 
+            border: 1px solid var(--text-muted);
+            border-radius: 50%; 
+            width: 45px; 
+            height: 45px; 
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1000; 
+            transition: 0.3s;
         }
-        .settings-btn:hover { transform: rotate(90deg); border-color: #fff; }
-        .settings-panel {
-            position: fixed; top: 75px; right: 20px; background: rgba(10, 10, 15, 0.95);
-            border: 1px solid var(--text-muted); border-radius: 12px; padding: 20px;
-            width: 250px; z-index: 999; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px); display: none;
-        }
-        .color-control { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .color-control input[type="color"] { background: none; border: none; width: 30px; height: 30px; cursor: pointer; }
-        .close-settings { width: 100%; padding: 8px; background: transparent; color: var(--text-main); border: 1px solid var(--text-muted); cursor: pointer; }
 
-        header { text-align: center; padding: 60px 20px 40px; text-transform: uppercase; }
+        .settings-btn:hover { 
+            transform: rotate(90deg); 
+            border-color: #fff; 
+        }
+
+        .settings-panel {
+            position: fixed; 
+            top: 75px; 
+            right: 20px; 
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid var(--text-muted); 
+            border-radius: 12px; 
+            padding: 20px;
+            width: 250px; 
+            z-index: 999; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px); 
+            display: none;
+        }
+
+        .settings-panel h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .color-control { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 15px; 
+            font-family: sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .color-control input[type="color"] { 
+            background: none; 
+            border: none; 
+            width: 30px; 
+            height: 30px; 
+            cursor: pointer; 
+        }
+
+        .close-settings { 
+            width: 100%; 
+            padding: 8px; 
+            background: transparent; 
+            color: var(--text-main); 
+            border: 1px solid var(--text-muted); 
+            cursor: pointer; 
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .close-settings:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* --- HEADER --- */
+        header { 
+            text-align: center; 
+            padding: 60px 20px 40px; 
+            text-transform: uppercase; 
+        }
+
         h1 {
-            margin: 0; font-size: 3.5rem; font-weight: 900; color: var(--title-cyan);
+            margin: 0; 
+            font-size: 3.5rem; 
+            font-weight: 900; 
+            color: var(--title-cyan);
             text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px var(--title-cyan), 0 0 40px var(--title-cyan);
             letter-spacing: 2px;
         }
 
-        .hub-container {
-            max-width: 1400px; margin: 0 auto; padding: 20px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+        p.subtitle {
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-family: sans-serif;
+            letter-spacing: 1px;
         }
 
-        @media (max-width: 1100px) { .hub-container { grid-template-columns: 1fr; } }
+        /* --- LAYOUT --- */
+        .hub-container {
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 20px;
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px;
+        }
+
+        @media (max-width: 1100px) { 
+            .hub-container { grid-template-columns: 1fr; } 
+        }
 
         .provider-column {
-            background: rgba(10, 10, 15, 0.8); border-radius: 12px; padding: 30px;
-            border-top: 4px solid; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(10, 10, 15, 0.8); 
+            border-radius: 12px; 
+            padding: 30px;
+            border-top: 4px solid; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
         }
+
         .tact-col { border-color: var(--tact-neon); }
         .pizza-col { border-color: var(--pizza-neon); }
 
-        .column-header { font-size: 2rem; font-weight: 700; margin-bottom: 30px; text-transform: uppercase; text-align: center; }
+        .column-header { 
+            font-size: 2rem; 
+            font-weight: 700; 
+            margin-top: 0;
+            margin-bottom: 30px; 
+            text-transform: uppercase; 
+            text-align: center; 
+        }
+
         .tact-text { color: var(--tact-neon); text-shadow: 0 0 10px rgba(255, 255, 0, 0.4); }
         .pizza-text { color: var(--pizza-neon); text-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
 
+        /* --- WIDENED CARDS --- */
         .game-card {
-            display: flex; background: #0a0a12; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px; margin-bottom: 20px; overflow: hidden; transition: 0.3s;
+            display: flex; 
+            background: #0a0a12; 
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            overflow: hidden; 
+            transition: 0.3s;
             min-height: 180px;
         }
+
         .tact-card:hover { border-color: var(--tact-neon); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2); transform: scale(1.02); }
         .pizza-card:hover { border-color: var(--pizza-neon); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); transform: scale(1.02); }
 
         .game-thumbnail {
-            width: 220px;
+            width: 220px; 
             flex-shrink: 0;
             background-color: #000;
             background-repeat: no-repeat;
             background-position: center;
-            background-size: contain;
+            background-size: contain; 
             border-right: 1px solid rgba(255,255,255,0.1);
-            padding: 10px;
+            padding: 10px; 
         }
 
         @media (max-width: 600px) {
@@ -101,20 +206,58 @@
             .game-thumbnail { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
         }
 
-        .game-info { padding: 20px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; }
-        .game-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .game-desc { font-family: sans-serif; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px; }
-
-        .play-button {
-            display: inline-block; padding: 10px 15px; text-align: center; text-decoration: none;
-            font-weight: 700; text-transform: uppercase; font-size: 0.8rem; border: 2px solid; background: transparent; transition: 0.3s;
+        .game-info { 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            flex-grow: 1; 
         }
+
+        .game-title { 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            color: #fff; 
+            margin-bottom: 8px; 
+        }
+
+        .game-desc { 
+            font-family: sans-serif; 
+            color: var(--text-muted); 
+            font-size: 0.85rem; 
+            margin-bottom: 15px; 
+        }
+
+        /* --- BUTTONS --- */
+        .play-button {
+            display: inline-block; 
+            padding: 10px 15px; 
+            text-align: center; 
+            text-decoration: none;
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            letter-spacing: 1px;
+            border: 2px solid; 
+            background: transparent; 
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
         .btn-tact { color: var(--tact-neon); border-color: var(--tact-neon); }
         .btn-tact:hover { background: var(--tact-neon); color: #000; box-shadow: 0 0 15px var(--tact-neon); }
+        
         .btn-pizza { color: var(--pizza-neon); border-color: var(--pizza-neon); }
         .btn-pizza:hover { background: var(--pizza-neon); color: #fff; box-shadow: 0 0 15px var(--pizza-neon); }
 
-        footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); }
+        footer { 
+            text-align: center; 
+            padding: 40px; 
+            font-family: sans-serif;
+            color: var(--text-muted); 
+            border-top: 1px solid rgba(255,255,255,0.05); 
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
@@ -122,9 +265,18 @@
     <div class="settings-btn" id="settingsBtn">⚙️</div>
     <div class="settings-panel" id="settingsPanel">
         <h3>Theme Settings</h3>
-        <div class="color-control"><span>Title</span><input type="color" id="titleColorInput" value="#00f3ff"></div>
-        <div class="color-control"><span>Tact</span><input type="color" id="tactColorInput" value="#ffff00"></div>
-        <div class="color-control"><span>Pizza</span><input type="color" id="pizzaColorInput" value="#ff0000"></div>
+        <div class="color-control">
+            <span>Title</span>
+            <input type="color" id="titleColorInput" value="#00f3ff">
+        </div>
+        <div class="color-control">
+            <span>Tact</span>
+            <input type="color" id="tactColorInput" value="#ffff00">
+        </div>
+        <div class="color-control">
+            <span>Pizza</span>
+            <input type="color" id="pizzaColorInput" value="#ff0000">
+        </div>
         <button class="close-settings" id="closeSettingsBtn">Close</button>
     </div>
 
@@ -136,31 +288,47 @@
     <div class="hub-container">
         <section class="provider-column tact-col">
             <h2 class="column-header tact-text">Tact's Games</h2>
+            
             <div class="game-card tact-card">
                 <div class="game-thumbnail" style="background-image: url('SkillBound.png');"></div>
                 <div class="game-info">
-                    <div><div class="game-title">SkillBound</div><div class="game-desc">Test your limits in this top-down adventure.</div></div>
+                    <div>
+                        <div class="game-title">SkillBound</div>
+                        <div class="game-desc">Test your limits in this top-down adventure.</div>
+                    </div>
                     <a href="https://tacticizm.github.io/SkillBound/" class="play-button btn-tact">Initialize</a>
                 </div>
             </div>
+            
             <div class="game-card tact-card">
                 <div class="game-thumbnail" style="background-image: url('Tact1.png');"></div>
                 <div class="game-info">
-                    <div><div class="game-title">Food Challenge</div><div class="game-desc">A fun, fast-paced challenge by Tact's Games.</div></div>
+                    <div>
+                        <div class="game-title">Food Challenge</div>
+                        <div class="game-desc">A fun, fast-paced challenge by Tact's Games.</div>
+                    </div>
                     <a href="https://tacticizm.github.io/Food-Challenge/" class="play-button btn-tact">Initialize</a>
                 </div>
             </div>
+            
             <div class="game-card tact-card">
                 <div class="game-thumbnail" style="background-image: url('Tact2.png');"></div>
                 <div class="game-info">
-                    <div><div class="game-title">A Point and Click Adventure Game</div><div class="game-desc">Classic interactable adventure format.</div></div>
+                    <div>
+                        <div class="game-title">A Point and Click Adventure Game</div>
+                        <div class="game-desc">Classic interactable adventure format.</div>
+                    </div>
                     <a href="https://tacticizm.github.io/PaCA/" class="play-button btn-tact">Initialize</a>
                 </div>
             </div>
+            
             <div class="game-card tact-card">
                 <div class="game-thumbnail" style="background-image: url('Tact3.png');"></div>
                 <div class="game-info">
-                    <div><div class="game-title">Project Zenith</div><div class="game-desc">The latest high-stakes project from Tact's Games.</div></div>
+                    <div>
+                        <div class="game-title">Project Zenith</div>
+                        <div class="game-desc">The latest high-stakes project from Tact's Games.</div>
+                    </div>
                     <a href="https://tacticizm.github.io/Project-Zenith/" class="play-button btn-tact">Initialize</a>
                 </div>
             </div>
@@ -168,52 +336,79 @@
 
         <section class="provider-column pizza-col">
             <h2 class="column-header pizza-text">Pizza Hero</h2>
+            
             <div class="game-card pizza-card">
                 <div class="game-thumbnail" style="background-image: url('Doom1.png');"></div>
                 <div class="game-info">
-                    <div><div class="game-title">Ethan Makes It</div><div class="game-desc">Dive into Ethan's unique world.</div></div>
+                    <div>
+                        <div class="game-title">Ethan Makes It</div>
+                        <div class="game-desc">Dive into Ethan's unique world.</div>
+                    </div>
                     <a href="https://youpizzahero.github.io/EthanMakesIt/" class="play-button btn-pizza">Initialize</a>
                 </div>
             </div>
+            
             <div class="game-card pizza-card">
                 <div class="game-thumbnail" style="background-image: url('Doom2.png');"></div>
                 <div class="game-info">
-                    <div><div class="game-title">Dungeon Descent</div><div class="game-desc">Brave the depths below.</div></div>
+                    <div>
+                        <div class="game-title">Dungeon Descent</div>
+                        <div class="game-desc">Brave the depths below.</div>
+                    </div>
                     <a href="https://youpizzahero.github.io/Dungeon-Descent/" class="play-button btn-pizza">Initialize</a>
                 </div>
             </div>
+            
             <div class="game-card pizza-card">
                 <div class="game-thumbnail" style="background-image: url('Doom3.png');"></div>
                 <div class="game-info">
-                    <div><div class="game-title">Wallop</div><div class="game-desc">Action-packed title with a serious punch.</div></div>
+                    <div>
+                        <div class="game-title">Wallop</div>
+                        <div class="game-desc">Action-packed title with a serious punch.</div>
+                    </div>
                     <a href="https://youpizzahero.github.io/Wallop/" class="play-button btn-pizza">Initialize</a>
                 </div>
             </div>
         </section>
     </div>
 
-    <footer><p>&copy; 2026 ARCADE HUB. ALL SYSTEMS NOMINAL.</p></footer>
+    <footer>
+        <p>&copy; 2026 ARCADE HUB. ALL SYSTEMS NOMINAL.</p>
+    </footer>
 
     <script>
         const settingsBtn = document.getElementById('settingsBtn');
         const settingsPanel = document.getElementById('settingsPanel');
         const root = document.documentElement;
+        
         const colorInputs = {
             '--title-cyan': document.getElementById('titleColorInput'),
             '--tact-neon': document.getElementById('tactColorInput'),
             '--pizza-neon': document.getElementById('pizzaColorInput')
         };
 
-        settingsBtn.onclick = () => settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
-        document.getElementById('closeSettingsBtn').onclick = () => settingsPanel.style.display = 'none';
+        // Open/Close menu
+        settingsBtn.onclick = () => {
+            settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
+        };
+        
+        document.getElementById('closeSettingsBtn').onclick = () => {
+            settingsPanel.style.display = 'none';
+        };
 
+        // Handle color changes and saving
         Object.keys(colorInputs).forEach(varName => {
             colorInputs[varName].oninput = (e) => {
                 root.style.setProperty(varName, e.target.value);
                 localStorage.setItem(varName, e.target.value);
             };
+            
+            // Load saved colors on startup
             const saved = localStorage.getItem(varName);
-            if (saved) { root.style.setProperty(varName, saved); colorInputs[varName].value = saved; }
+            if (saved) { 
+                root.style.setProperty(varName, saved); 
+                colorInputs[varName].value = saved; 
+            }
         });
     </script>
 </body>
