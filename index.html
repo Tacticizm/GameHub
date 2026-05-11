@@ -175,7 +175,7 @@
         .tact-text { color: var(--tact-neon); text-shadow: 0 0 10px rgba(255, 255, 0, 0.4); }
         .pizza-text { color: var(--pizza-neon); text-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
 
-        /* --- WIDENED CARDS --- */
+        /* --- CARDS & DYNAMIC THUMBNAILS --- */
         .game-card {
             display: flex; 
             background: #0a0a12; 
@@ -184,26 +184,38 @@
             margin-bottom: 20px; 
             overflow: hidden; 
             transition: 0.3s;
-            min-height: 180px;
+            align-items: stretch; /* Makes sure the thumbnail box stretches to match the text height */
         }
 
         .tact-card:hover { border-color: var(--tact-neon); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2); transform: scale(1.02); }
         .pizza-card:hover { border-color: var(--pizza-neon); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); transform: scale(1.02); }
 
-        .game-thumbnail {
-            width: 220px; 
-            flex-shrink: 0;
+        .thumbnail-container {
+            display: flex;
+            align-items: center; /* Centers image vertically */
+            justify-content: center; /* Centers image horizontally */
             background-color: #000;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain; 
             border-right: 1px solid rgba(255,255,255,0.1);
-            padding: 10px; 
+            flex-shrink: 0;
+            padding: 15px; /* Creates a clean frame around the natural image shape */
+        }
+
+        .game-thumbnail {
+            max-width: 200px; /* Limits how wide the image can get */
+            max-height: 200px; /* Limits how tall the image can get */
+            width: auto; 
+            height: auto;
+            display: block;
         }
 
         @media (max-width: 600px) {
             .game-card { flex-direction: column; }
-            .game-thumbnail { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .thumbnail-container { 
+                width: 100%; 
+                border-right: none; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+            }
+            .game-thumbnail { max-height: 250px; }
         }
 
         .game-info { 
@@ -290,7 +302,9 @@
             <h2 class="column-header tact-text">Tact's Games</h2>
             
             <div class="game-card tact-card">
-                <div class="game-thumbnail" style="background-image: url('SkillBound.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="SkillBound.png" alt="SkillBound" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">SkillBound</div>
@@ -301,7 +315,9 @@
             </div>
             
             <div class="game-card tact-card">
-                <div class="game-thumbnail" style="background-image: url('Tact1.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="Tact1.png" alt="Food Challenge" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">Food Challenge</div>
@@ -312,7 +328,9 @@
             </div>
             
             <div class="game-card tact-card">
-                <div class="game-thumbnail" style="background-image: url('Tact2.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="Tact2.png" alt="Point and Click Adventure" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">A Point and Click Adventure Game</div>
@@ -323,7 +341,9 @@
             </div>
             
             <div class="game-card tact-card">
-                <div class="game-thumbnail" style="background-image: url('Tact3.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="Tact3.png" alt="Project Zenith" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">Project Zenith</div>
@@ -338,7 +358,9 @@
             <h2 class="column-header pizza-text">Pizza Hero</h2>
             
             <div class="game-card pizza-card">
-                <div class="game-thumbnail" style="background-image: url('Doom1.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="Doom1.png" alt="Ethan Makes It" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">Ethan Makes It</div>
@@ -349,7 +371,9 @@
             </div>
             
             <div class="game-card pizza-card">
-                <div class="game-thumbnail" style="background-image: url('Doom2.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="Doom2.png" alt="Dungeon Descent" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">Dungeon Descent</div>
@@ -360,7 +384,9 @@
             </div>
             
             <div class="game-card pizza-card">
-                <div class="game-thumbnail" style="background-image: url('Doom3.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="Doom3.png" alt="Wallop" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">Wallop</div>
@@ -371,7 +397,9 @@
             </div>
 
             <div class="game-card pizza-card">
-                <div class="game-thumbnail" style="background-image: url('Doom4.png');"></div>
+                <div class="thumbnail-container">
+                    <img src="Doom4.png" alt="Alchemy" class="game-thumbnail">
+                </div>
                 <div class="game-info">
                     <div>
                         <div class="game-title">Alchemy</div>
