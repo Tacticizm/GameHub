@@ -3,451 +3,806 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Game Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Arcade Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #05050a;
-            --text-main: #e0e0ff;
-            --text-muted: #8a8aab;
-            
-            /* Default Theme Colors */
-            --title-cyan: #00f3ff;
-            --tact-neon: #ffff00; /* Yellow */
-            --pizza-neon: #ff0000; /* Pure Red */
+            --bg: #07070f;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #e8e8f0;
+            --muted: #6b6b8a;
+            --title-color: #00f3ff;
+            --tact-color: #ffff00;
+            --pizza-color: #ff0000;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Orbitron', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- SETTINGS MENU --- */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 243, 255, 0.018) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.018) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: 64px;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(7, 7, 15, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.15rem;
+            color: var(--title-color);
+            text-shadow: 0 0 24px var(--title-color);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-logo em {
+            font-style: normal;
+            color: rgba(255,255,255,0.25);
+            font-weight: 300;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            margin-left: 14px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .game-count-chip {
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            color: var(--muted);
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+        }
+
         .settings-btn {
-            position: fixed; 
-            top: 20px; 
-            right: 20px; 
-            font-size: 24px; 
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             cursor: pointer;
-            background: rgba(10, 10, 15, 0.8); 
-            border: 1px solid var(--text-muted);
-            border-radius: 50%; 
-            width: 45px; 
-            height: 45px; 
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            z-index: 1000; 
-            transition: 0.3s;
+            font-size: 15px;
+            color: var(--muted);
+            transition: all 0.25s;
+            user-select: none;
         }
 
-        .settings-btn:hover { 
-            transform: rotate(90deg); 
-            border-color: #fff; 
+        .settings-btn:hover {
+            background: var(--surface-hover);
+            border-color: rgba(255,255,255,0.18);
+            color: var(--text);
+            transform: rotate(60deg);
         }
 
+        /* ── SETTINGS PANEL ── */
         .settings-panel {
-            position: fixed; 
-            top: 75px; 
-            right: 20px; 
-            background: rgba(10, 10, 15, 0.95);
-            border: 1px solid var(--text-muted); 
-            border-radius: 12px; 
+            position: fixed;
+            top: 76px; right: 20px;
+            width: 230px;
+            background: rgba(8, 8, 18, 0.97);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
             padding: 20px;
-            width: 250px; 
-            z-index: 999; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px); 
+            z-index: 200;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.7);
             display: none;
+            animation: dropIn 0.2s ease;
         }
 
-        .settings-panel h3 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
+        @keyframes dropIn {
+            from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .color-control { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 15px; 
-            font-family: sans-serif;
-            font-size: 0.9rem;
-        }
+        .settings-panel.open { display: block; }
 
-        .color-control input[type="color"] { 
-            background: none; 
-            border: none; 
-            width: 30px; 
-            height: 30px; 
-            cursor: pointer; 
-        }
-
-        .close-settings { 
-            width: 100%; 
-            padding: 8px; 
-            background: transparent; 
-            color: var(--text-main); 
-            border: 1px solid var(--text-muted); 
-            cursor: pointer; 
+        .settings-label {
             font-family: 'Orbitron', sans-serif;
-            border-radius: 4px;
-            transition: 0.3s;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
         }
 
-        .close-settings:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        /* --- HEADER --- */
-        header { 
-            text-align: center; 
-            padding: 60px 20px 40px; 
-            text-transform: uppercase; 
-        }
-
-        h1 {
-            margin: 0; 
-            font-size: 3.5rem; 
-            font-weight: 900; 
-            color: var(--title-cyan);
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px var(--title-cyan), 0 0 40px var(--title-cyan);
-            letter-spacing: 2px;
-        }
-
-        p.subtitle {
-            color: var(--text-muted);
-            margin-top: 10px;
-            font-family: sans-serif;
-            letter-spacing: 1px;
-        }
-
-        /* --- LAYOUT --- */
-        .hub-container {
-            max-width: 1400px; 
-            margin: 0 auto; 
-            padding: 20px;
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px;
-        }
-
-        @media (max-width: 1100px) { 
-            .hub-container { grid-template-columns: 1fr; } 
-        }
-
-        .provider-column {
-            background: rgba(10, 10, 15, 0.8); 
-            border-radius: 12px; 
-            padding: 30px;
-            border-top: 4px solid; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .tact-col { border-color: var(--tact-neon); }
-        .pizza-col { border-color: var(--pizza-neon); }
-
-        .column-header { 
-            font-size: 2rem; 
-            font-weight: 700; 
-            margin-top: 0;
-            margin-bottom: 30px; 
-            text-transform: uppercase; 
-            text-align: center; 
-        }
-
-        .tact-text { color: var(--tact-neon); text-shadow: 0 0 10px rgba(255, 255, 0, 0.4); }
-        .pizza-text { color: var(--pizza-neon); text-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
-
-        /* --- CARDS & DYNAMIC THUMBNAILS --- */
-        .game-card {
-            display: flex; 
-            background: #0a0a12; 
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            overflow: hidden; 
-            transition: 0.3s;
-            align-items: stretch; /* Makes sure the thumbnail box stretches to match the text height */
-        }
-
-        .tact-card:hover { border-color: var(--tact-neon); box-shadow: 0 0 15px rgba(255, 255, 0, 0.2); transform: scale(1.02); }
-        .pizza-card:hover { border-color: var(--pizza-neon); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); transform: scale(1.02); }
-
-        .thumbnail-container {
+        .color-row {
             display: flex;
-            align-items: center; /* Centers image vertically */
-            justify-content: center; /* Centers image horizontally */
-            background-color: #000;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            flex-shrink: 0;
-            padding: 15px; /* Creates a clean frame around the natural image shape */
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.83rem;
+            color: var(--text);
         }
 
-        .game-thumbnail {
-            max-width: 200px; /* Limits how wide the image can get */
-            max-height: 200px; /* Limits how tall the image can get */
-            width: auto; 
-            height: auto;
-            display: block;
+        .color-row input[type="color"] {
+            width: 32px; height: 32px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 6px;
         }
 
-        @media (max-width: 600px) {
-            .game-card { flex-direction: column; }
-            .thumbnail-container { 
-                width: 100%; 
-                border-right: none; 
-                border-bottom: 1px solid rgba(255,255,255,0.1); 
-            }
-            .game-thumbnail { max-height: 250px; }
-        }
-
-        .game-info { 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            flex-grow: 1; 
-        }
-
-        .game-title { 
-            font-size: 1.2rem; 
-            font-weight: 700; 
-            color: #fff; 
-            margin-bottom: 8px; 
-        }
-
-        .game-desc { 
-            font-family: sans-serif; 
-            color: var(--text-muted); 
-            font-size: 0.85rem; 
-            margin-bottom: 15px; 
-        }
-
-        /* --- BUTTONS --- */
-        .play-button {
-            display: inline-block; 
-            padding: 10px 15px; 
-            text-align: center; 
-            text-decoration: none;
-            font-weight: 700; 
-            text-transform: uppercase; 
-            font-size: 0.8rem; 
+        .close-btn {
+            margin-top: 8px;
+            width: 100%;
+            padding: 8px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            color: var(--muted);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
             letter-spacing: 1px;
-            border: 2px solid; 
-            background: transparent; 
-            transition: 0.3s;
-            border-radius: 4px;
         }
 
-        .btn-tact { color: var(--tact-neon); border-color: var(--tact-neon); }
-        .btn-tact:hover { background: var(--tact-neon); color: #000; box-shadow: 0 0 15px var(--tact-neon); }
-        
-        .btn-pizza { color: var(--pizza-neon); border-color: var(--pizza-neon); }
-        .btn-pizza:hover { background: var(--pizza-neon); color: #fff; box-shadow: 0 0 15px var(--pizza-neon); }
-
-        footer { 
-            text-align: center; 
-            padding: 40px; 
-            font-family: sans-serif;
-            color: var(--text-muted); 
-            border-top: 1px solid rgba(255,255,255,0.05); 
-            margin-top: 40px;
+        .close-btn:hover {
+            background: var(--surface-hover);
+            color: var(--text);
+            border-color: rgba(255,255,255,0.18);
         }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 130px 40px 50px;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .hero-eyebrow::before, .hero-eyebrow::after {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.8rem, 9vw, 6rem);
+            font-weight: 900;
+            color: var(--title-color);
+            text-shadow: 0 0 40px var(--title-color), 0 0 90px rgba(0, 243, 255, 0.25);
+            line-height: 1;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .hero-sub {
+            color: var(--muted);
+            font-size: 0.82rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* ── FILTER BAR ── */
+        .filter-bar {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto 32px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--muted);
+            margin-right: 6px;
+        }
+
+        .filter-tab {
+            padding: 7px 18px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .filter-tab:hover {
+            background: var(--surface-hover);
+            color: var(--text);
+            border-color: rgba(255,255,255,0.16);
+        }
+
+        .filter-tab.active {
+            background: rgba(0, 243, 255, 0.12);
+            color: var(--title-color);
+            border-color: rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 16px rgba(0, 243, 255, 0.12);
+        }
+
+        .filter-divider {
+            width: 1px;
+            height: 18px;
+            background: var(--border);
+            margin: 0 4px;
+        }
+
+        /* ── GAME GRID ── */
+        .game-grid {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 20px;
+        }
+
+        /* ── GAME CARD ── */
+        .game-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.3s ease,
+                        border-color 0.3s ease,
+                        background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            background: var(--surface-hover);
+        }
+
+        .card-tact:hover {
+            border-color: rgba(255, 255, 0, 0.25);
+            box-shadow: 0 24px 60px rgba(255, 255, 0, 0.08), 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        .card-pizza:hover {
+            border-color: rgba(255, 0, 0, 0.25);
+            box-shadow: 0 24px 60px rgba(255, 0, 0, 0.08), 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        /* staggered entrance */
+        .game-card:nth-child(1) { animation-delay: 0.04s; }
+        .game-card:nth-child(2) { animation-delay: 0.08s; }
+        .game-card:nth-child(3) { animation-delay: 0.12s; }
+        .game-card:nth-child(4) { animation-delay: 0.16s; }
+        .game-card:nth-child(5) { animation-delay: 0.20s; }
+        .game-card:nth-child(6) { animation-delay: 0.24s; }
+        .game-card:nth-child(7) { animation-delay: 0.28s; }
+        .game-card:nth-child(8) { animation-delay: 0.32s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* thumbnail */
+        .card-thumb {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .card-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.45s ease;
+        }
+
+        .game-card:hover .card-thumb img {
+            transform: scale(1.07);
+        }
+
+        /* provider badge */
+        .provider-badge {
+            position: absolute;
+            top: 10px; left: 10px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-tact {
+            background: rgba(255, 255, 0, 0.12);
+            border: 1px solid rgba(255, 255, 0, 0.35);
+            color: var(--tact-color);
+        }
+
+        .badge-pizza {
+            background: rgba(255, 0, 0, 0.12);
+            border: 1px solid rgba(255, 0, 0, 0.35);
+            color: var(--pizza-color);
+        }
+
+        /* card body */
+        .card-body {
+            padding: 18px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.55;
+            flex: 1;
+            margin-bottom: 14px;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* play button */
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid;
+            transition: all 0.22s;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .play-btn::before {
+            content: '▶';
+            font-size: 0.6rem;
+        }
+
+        .btn-tact {
+            color: var(--tact-color);
+            border-color: rgba(255, 255, 0, 0.25);
+            background: rgba(255, 255, 0, 0.04);
+        }
+
+        .btn-tact:hover {
+            background: var(--tact-color);
+            color: #000;
+            border-color: var(--tact-color);
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.35);
+        }
+
+        .btn-pizza {
+            color: var(--pizza-color);
+            border-color: rgba(255, 0, 0, 0.25);
+            background: rgba(255, 0, 0, 0.04);
+        }
+
+        .btn-pizza:hover {
+            background: var(--pizza-color);
+            color: #fff;
+            border-color: var(--pizza-color);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.35);
+        }
+
+        /* ── SECTION DIVIDER ── */
+        .section-heading {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto 20px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--muted);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
+        .section-heading:hover { color: var(--text); }
+
+        .section-heading::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            transition: background 0.2s;
+        }
+
+        .section-heading:hover::after { background: rgba(255,255,255,0.2); }
+
+        .section-heading span {
+            white-space: nowrap;
+        }
+
+        .section-heading .filter-arrow {
+            font-size: 0.6rem;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .section-heading:hover .filter-arrow { opacity: 1; }
+
+        /* ── FOOTER ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 28px 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--title-color);
+            letter-spacing: 2px;
+            opacity: 0.6;
+        }
+
+        .footer-copy {
+            font-size: 0.72rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 700px) {
+            nav { padding: 0 16px; }
+            .hero { padding: 110px 20px 40px; }
+            .filter-bar { padding: 0 16px; }
+            .game-grid { padding: 0 16px 60px; gap: 16px; }
+            .section-heading { padding: 0 16px; }
+            footer { padding: 24px 16px; }
+        }
+
+        /* ── UTILITIES ── */
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div class="settings-btn" id="settingsBtn">⚙️</div>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-logo">Arcade Hub <em>// SYSTEM ONLINE</em></div>
+        <div class="nav-right">
+            <div class="game-count-chip" id="gameCountChip">8 Games</div>
+            <div class="settings-btn" id="settingsBtn" title="Theme settings">⚙</div>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
     <div class="settings-panel" id="settingsPanel">
-        <h3>Theme Settings</h3>
-        <div class="color-control">
+        <div class="settings-label">Theme Colors</div>
+        <div class="color-row">
             <span>Title</span>
             <input type="color" id="titleColorInput" value="#00f3ff">
         </div>
-        <div class="color-control">
-            <span>Tact</span>
+        <div class="color-row">
+            <span>Tact's Games</span>
             <input type="color" id="tactColorInput" value="#ffff00">
         </div>
-        <div class="color-control">
-            <span>Pizza</span>
+        <div class="color-row">
+            <span>Pizza Hero</span>
             <input type="color" id="pizzaColorInput" value="#ff0000">
         </div>
-        <button class="close-settings" id="closeSettingsBtn">Close</button>
+        <button class="close-btn" id="closeSettingsBtn">Close</button>
     </div>
 
-    <header>
-        <h1>ARCADE HUB</h1>
-        <p class="subtitle">SYSTEM ONLINE // SELECT YOUR GAME</p>
-    </header>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-eyebrow">Select your game</div>
+        <h1 class="hero-title">Arcade Hub</h1>
+        <p class="hero-sub">Two Providers &bull; Eight Games &bull; Infinite Runs</p>
+    </section>
 
-    <div class="hub-container">
-        <section class="provider-column tact-col">
-            <h2 class="column-header tact-text">Tact's Games</h2>
-            
-            <div class="game-card tact-card">
-                <div class="thumbnail-container">
-                    <img src="SkillBound.png" alt="SkillBound" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">SkillBound</div>
-                        <div class="game-desc">Test your limits in this top-down adventure.</div>
-                    </div>
-                    <a href="https://tacticizm.github.io/SkillBound/" class="play-button btn-tact">Initialize</a>
-                </div>
-            </div>
-            
-            <div class="game-card tact-card">
-                <div class="thumbnail-container">
-                    <img src="Tact1.png" alt="Food Challenge" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">Food Challenge</div>
-                        <div class="game-desc">A fun, fast-paced challenge by Tact's Games.</div>
-                    </div>
-                    <a href="https://tacticizm.github.io/Food-Challenge/" class="play-button btn-tact">Initialize</a>
-                </div>
-            </div>
-            
-            <div class="game-card tact-card">
-                <div class="thumbnail-container">
-                    <img src="Tact2.png" alt="Point and Click Adventure" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">A Point and Click Adventure Game</div>
-                        <div class="game-desc">Classic interactable adventure format.</div>
-                    </div>
-                    <a href="https://tacticizm.github.io/PaCA/" class="play-button btn-tact">Initialize</a>
-                </div>
-            </div>
-            
-            <div class="game-card tact-card">
-                <div class="thumbnail-container">
-                    <img src="Tact3.png" alt="Project Zenith" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">Project Zenith</div>
-                        <div class="game-desc">The latest high-stakes project from Tact's Games.</div>
-                    </div>
-                    <a href="https://tacticizm.github.io/Project-Zenith/" class="play-button btn-tact">Initialize</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="provider-column pizza-col">
-            <h2 class="column-header pizza-text">Pizza Hero</h2>
-            
-            <div class="game-card pizza-card">
-                <div class="thumbnail-container">
-                    <img src="Doom1.png" alt="Ethan Makes It" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">Ethan Makes It</div>
-                        <div class="game-desc">Dive into Ethan's unique world.</div>
-                    </div>
-                    <a href="https://youpizzahero.github.io/EthanMakesIt/" class="play-button btn-pizza">Initialize</a>
-                </div>
-            </div>
-            
-            <div class="game-card pizza-card">
-                <div class="thumbnail-container">
-                    <img src="Doom2.png" alt="Dungeon Descent" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">Dungeon Descent</div>
-                        <div class="game-desc">Brave the depths below.</div>
-                    </div>
-                    <a href="https://youpizzahero.github.io/Dungeon-Descent/" class="play-button btn-pizza">Initialize</a>
-                </div>
-            </div>
-            
-            <div class="game-card pizza-card">
-                <div class="thumbnail-container">
-                    <img src="Doom3.png" alt="Wallop" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">Wallop</div>
-                        <div class="game-desc">Action-packed title with a serious punch.</div>
-                    </div>
-                    <a href="https://youpizzahero.github.io/Wallop/" class="play-button btn-pizza">Initialize</a>
-                </div>
-            </div>
-
-            <div class="game-card pizza-card">
-                <div class="thumbnail-container">
-                    <img src="Doom4.png" alt="Alchemy" class="game-thumbnail">
-                </div>
-                <div class="game-info">
-                    <div>
-                        <div class="game-title">Alchemy</div>
-                        <div class="game-desc">Discover the secrets of elements and transmutation.</div>
-                    </div>
-                    <a href="https://youpizzahero.github.io/alchemy/" class="play-button btn-pizza">Initialize</a>
-                </div>
-            </div>
-        </section>
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <span class="filter-label">Provider</span>
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="tact">Tact's Games</button>
+        <button class="filter-tab" data-filter="pizza">Pizza Hero</button>
     </div>
 
+    <!-- TACT SECTION -->
+    <div class="section-heading" id="headTact" data-filter="tact">
+        <span>Tact's Games</span>
+        <span class="filter-arrow">▶</span>
+    </div>
+    <div class="game-grid" id="tactGrid">
+
+        <div class="game-card card-tact">
+            <div class="card-thumb">
+                <img src="SkillBound.png" alt="SkillBound">
+                <span class="provider-badge badge-tact">Tact's Games</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">SkillBound</div>
+                <div class="card-desc">Test your limits in this top-down adventure.</div>
+                <div class="card-footer">
+                    <a href="https://tacticizm.github.io/SkillBound/" class="play-btn btn-tact">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card card-tact">
+            <div class="card-thumb">
+                <img src="Tact1.png" alt="Food Challenge">
+                <span class="provider-badge badge-tact">Tact's Games</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Food Challenge</div>
+                <div class="card-desc">A fun, fast-paced challenge by Tact's Games.</div>
+                <div class="card-footer">
+                    <a href="https://tacticizm.github.io/Food-Challenge/" class="play-btn btn-tact">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card card-tact">
+            <div class="card-thumb">
+                <img src="Tact2.png" alt="Point and Click Adventure">
+                <span class="provider-badge badge-tact">Tact's Games</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">A Point and Click Adventure Game</div>
+                <div class="card-desc">Classic interactable adventure format.</div>
+                <div class="card-footer">
+                    <a href="https://tacticizm.github.io/PaCA/" class="play-btn btn-tact">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card card-tact">
+            <div class="card-thumb">
+                <img src="Tact3.png" alt="Project Zenith">
+                <span class="provider-badge badge-tact">Tact's Games</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Project Zenith</div>
+                <div class="card-desc">The latest high-stakes project from Tact's Games.</div>
+                <div class="card-footer">
+                    <a href="https://tacticizm.github.io/Project-Zenith/" class="play-btn btn-tact">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PIZZA SECTION -->
+    <div class="section-heading" id="headPizza" data-filter="pizza">
+        <span>Pizza Hero</span>
+        <span class="filter-arrow">▶</span>
+    </div>
+    <div class="game-grid" id="pizzaGrid">
+
+        <div class="game-card card-pizza">
+            <div class="card-thumb">
+                <img src="Doom1.png" alt="Ethan Makes It">
+                <span class="provider-badge badge-pizza">Pizza Hero</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Ethan Makes It</div>
+                <div class="card-desc">Dive into Ethan's unique world.</div>
+                <div class="card-footer">
+                    <a href="https://youpizzahero.github.io/EthanMakesIt/" class="play-btn btn-pizza">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card card-pizza">
+            <div class="card-thumb">
+                <img src="Doom2.png" alt="Dungeon Descent">
+                <span class="provider-badge badge-pizza">Pizza Hero</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Dungeon Descent</div>
+                <div class="card-desc">Brave the depths below.</div>
+                <div class="card-footer">
+                    <a href="https://youpizzahero.github.io/Dungeon-Descent/" class="play-btn btn-pizza">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card card-pizza">
+            <div class="card-thumb">
+                <img src="Doom3.png" alt="Wallop">
+                <span class="provider-badge badge-pizza">Pizza Hero</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Wallop</div>
+                <div class="card-desc">Action-packed title with a serious punch.</div>
+                <div class="card-footer">
+                    <a href="https://youpizzahero.github.io/Wallop/" class="play-btn btn-pizza">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-card card-pizza">
+            <div class="card-thumb">
+                <img src="Doom4.png" alt="Alchemy">
+                <span class="provider-badge badge-pizza">Pizza Hero</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Alchemy</div>
+                <div class="card-desc">Discover the secrets of elements and transmutation.</div>
+                <div class="card-footer">
+                    <a href="https://youpizzahero.github.io/alchemy/" class="play-btn btn-pizza">Play Now</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 ARCADE HUB. ALL SYSTEMS NOMINAL.</p>
+        <div class="footer-logo">Arcade Hub</div>
+        <div class="footer-copy">&copy; 2026 &mdash; All Systems Nominal</div>
     </footer>
 
     <script>
-        const settingsBtn = document.getElementById('settingsBtn');
+        // ── Settings panel ──
+        const settingsBtn   = document.getElementById('settingsBtn');
         const settingsPanel = document.getElementById('settingsPanel');
-        const root = document.documentElement;
-        
-        const colorInputs = {
-            '--title-cyan': document.getElementById('titleColorInput'),
-            '--tact-neon': document.getElementById('tactColorInput'),
-            '--pizza-neon': document.getElementById('pizzaColorInput')
-        };
+        const root          = document.documentElement;
 
-        // Open/Close menu
-        settingsBtn.onclick = () => {
-            settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
-        };
-        
-        document.getElementById('closeSettingsBtn').onclick = () => {
-            settingsPanel.style.display = 'none';
-        };
-
-        // Handle color changes and saving
-        Object.keys(colorInputs).forEach(varName => {
-            colorInputs[varName].oninput = (e) => {
-                root.style.setProperty(varName, e.target.value);
-                localStorage.setItem(varName, e.target.value);
-            };
-            
-            // Load saved colors on startup
-            const saved = localStorage.getItem(varName);
-            if (saved) { 
-                root.style.setProperty(varName, saved); 
-                colorInputs[varName].value = saved; 
+        settingsBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            settingsPanel.classList.toggle('open');
+        });
+        document.getElementById('closeSettingsBtn').addEventListener('click', () => {
+            settingsPanel.classList.remove('open');
+        });
+        document.addEventListener('click', e => {
+            if (!settingsPanel.contains(e.target) && e.target !== settingsBtn) {
+                settingsPanel.classList.remove('open');
             }
+        });
+
+        // ── Theme color pickers ──
+        const colorMap = {
+            '--title-color': document.getElementById('titleColorInput'),
+            '--tact-color':  document.getElementById('tactColorInput'),
+            '--pizza-color': document.getElementById('pizzaColorInput'),
+        };
+
+        Object.entries(colorMap).forEach(([prop, input]) => {
+            const saved = localStorage.getItem(prop);
+            if (saved) { root.style.setProperty(prop, saved); input.value = saved; }
+            input.addEventListener('input', e => {
+                root.style.setProperty(prop, e.target.value);
+                localStorage.setItem(prop, e.target.value);
+            });
+        });
+
+        // ── Filter ──
+        const tabs      = document.querySelectorAll('.filter-tab');
+        const countChip = document.getElementById('gameCountChip');
+        const sections  = {
+            tact:  { head: document.getElementById('headTact'),  grid: document.getElementById('tactGrid') },
+            pizza: { head: document.getElementById('headPizza'), grid: document.getElementById('pizzaGrid') },
+        };
+
+        function applyFilter(filter) {
+            tabs.forEach(t => t.classList.toggle('active', t.dataset.filter === filter));
+
+            let visible = 0;
+            Object.entries(sections).forEach(([key, { head, grid }]) => {
+                const show = filter === 'all' || filter === key;
+                head.classList.toggle('hidden', !show);
+                grid.classList.toggle('hidden', !show);
+                if (show) visible += grid.querySelectorAll('.game-card').length;
+            });
+
+            countChip.textContent = visible + (visible === 1 ? ' Game' : ' Games');
+        }
+
+        tabs.forEach(tab => tab.addEventListener('click', () => applyFilter(tab.dataset.filter)));
+
+        document.querySelectorAll('.section-heading[data-filter]').forEach(heading => {
+            heading.addEventListener('click', () => applyFilter(heading.dataset.filter));
         });
     </script>
 </body>
