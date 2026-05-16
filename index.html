@@ -521,6 +521,33 @@
 
         .section-heading:hover .filter-arrow { opacity: 1; }
 
+        .visit-site-btn {
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 4px 12px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--muted);
+            background: var(--surface);
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .visit-site-btn:hover {
+            color: var(--text);
+            border-color: rgba(255,255,255,0.35);
+            background: var(--surface-hover);
+        }
+
+        .visit-site-btn.no-site {
+            opacity: 0.35;
+            cursor: default;
+            pointer-events: none;
+        }
+
         /* ── FOOTER ── */
         footer {
             position: relative;
@@ -610,6 +637,7 @@
     <div class="section-heading" id="headTact" data-filter="tact">
         <span>Tact's Games</span>
         <span class="filter-arrow">▶</span>
+        <span class="visit-site-btn no-site">No Site Yet</span>
     </div>
     <div class="game-grid" id="tactGrid">
 
@@ -675,6 +703,7 @@
     <div class="section-heading" id="headPizza" data-filter="pizza">
         <span>Pizza Hero</span>
         <span class="filter-arrow">▶</span>
+        <a href="https://pizzaherogaming.github.io/PizzaHeroGaming/" class="visit-site-btn" target="_blank" rel="noopener" onclick="event.stopPropagation()">Visit Site →</a>
     </div>
     <div class="game-grid" id="pizzaGrid">
 
