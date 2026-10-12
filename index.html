@@ -16,6 +16,7 @@
             --title-color: #00f3ff;
             --tact-color: #ffff00;
             --pizza-color: #ff0000;
+            --camp-color: #3d8bff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -338,6 +339,31 @@
             box-shadow: 0 24px 60px rgba(255, 0, 0, 0.08), 0 4px 16px rgba(0,0,0,0.4);
         }
 
+        /* coming soon placeholder (not a .game-card so it isn't counted as a game) */
+        .coming-soon {
+            grid-column: 1 / -1;
+            padding: 36px 20px;
+            text-align: center;
+            border: 1px dashed rgba(61, 139, 255, 0.35);
+            border-radius: 16px;
+            background: rgba(61, 139, 255, 0.04);
+            color: var(--camp-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .coming-soon small {
+            display: block;
+            margin-top: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: none;
+            color: var(--muted);
+        }
+
         /* staggered entrance */
         .game-card:nth-child(1) { animation-delay: 0.04s; }
         .game-card:nth-child(2) { animation-delay: 0.08s; }
@@ -418,6 +444,12 @@
             background: rgba(255, 255, 0, 0.12);
             border: 1px solid rgba(255, 255, 0, 0.35);
             color: var(--tact-color);
+        }
+
+        .badge-camp {
+            background: rgba(61, 139, 255, 0.12);
+            border: 1px solid rgba(61, 139, 255, 0.35);
+            color: var(--camp-color);
         }
 
         .badge-pizza {
@@ -503,6 +535,19 @@
             color: #fff;
             border-color: var(--pizza-color);
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.35);
+        }
+
+        .btn-camp {
+            color: var(--camp-color);
+            border-color: rgba(61, 139, 255, 0.25);
+            background: rgba(61, 139, 255, 0.04);
+        }
+
+        .btn-camp:hover {
+            background: var(--camp-color);
+            color: #fff;
+            border-color: var(--camp-color);
+            box-shadow: 0 0 20px rgba(61, 139, 255, 0.35);
         }
 
         /* ── SECTION DIVIDER ── */
@@ -642,6 +687,10 @@
             <span>Pizza Hero</span>
             <input type="color" id="pizzaColorInput" value="#ff0000">
         </div>
+        <div class="color-row">
+            <span>Camp's Games</span>
+            <input type="color" id="campColorInput" value="#3d8bff">
+        </div>
         <button class="close-btn" id="closeSettingsBtn">Close</button>
     </div>
 
@@ -649,7 +698,7 @@
     <section class="hero">
         <div class="hero-eyebrow">Select your game</div>
         <h1 class="hero-title">Arcade Hub</h1>
-        <p class="hero-sub">Two Providers &bull; Eight Games &bull; Infinite Runs</p>
+        <p class="hero-sub">Three Providers &bull; Eight Games &bull; Infinite Runs</p>
     </section>
 
     <!-- FILTER BAR -->
@@ -658,6 +707,7 @@
         <button class="filter-tab active" data-filter="all">All</button>
         <button class="filter-tab" data-filter="tact">Tact's Games</button>
         <button class="filter-tab" data-filter="pizza">Pizza Hero</button>
+        <button class="filter-tab" data-filter="camp">Camp's Games</button>
     </div>
 
     <!-- TACT SECTION -->
@@ -824,6 +874,16 @@
 
     </div>
 
+    <!-- CAMP SECTION -->
+    <div class="section-heading" id="headCamp" data-filter="camp">
+        <span>Camp's Games</span>
+        <span class="filter-arrow">▶</span>
+        <span class="visit-site-btn no-site">No Site Yet</span>
+    </div>
+    <div class="game-grid" id="campGrid">
+        <div class="coming-soon">Coming Soon<small>Camp's Games are on the way. Check back soon!</small></div>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <div class="footer-logo">Arcade Hub</div>
@@ -854,6 +914,7 @@
             '--title-color': document.getElementById('titleColorInput'),
             '--tact-color':  document.getElementById('tactColorInput'),
             '--pizza-color': document.getElementById('pizzaColorInput'),
+            '--camp-color':  document.getElementById('campColorInput'),
         };
 
         Object.entries(colorMap).forEach(([prop, input]) => {
@@ -871,6 +932,7 @@
         const sections  = {
             tact:  { head: document.getElementById('headTact'),  grid: document.getElementById('tactGrid') },
             pizza: { head: document.getElementById('headPizza'), grid: document.getElementById('pizzaGrid') },
+            camp:  { head: document.getElementById('headCamp'),  grid: document.getElementById('campGrid') },
         };
 
         function applyFilter(filter) {
